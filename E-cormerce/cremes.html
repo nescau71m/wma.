@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WMA-Perfumes</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Estilos do header */
+        header {
+            background-color: rgb(255, 7, 172);
+            padding: 20px 40px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            color: black;
+            background-color: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 2.5em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Estilos da grade de produtos */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 40px 30px;
+        }
+
+        /* Estilo para cada produto */
+        .product {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .product img:hover {
+            transform: scale(1.1);
+        }
+
+        .product h2 {
+            color: #333;
+            margin: 15px 0;
+            font-size: 1.5em;
+        }
+
+        .product p {
+            color: #777;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .product .price {
+            font-size: 1.6em;
+            color: #fd1900;
+            margin: 10px 0;
+        }
+
+        .buy-button {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .buy-button:hover {
+            background-color: #2ecc71;
+            transform: scale(1.05);
+        }
+
+        /* Estilo para o link do Carrinho */
+        #carrinhoLink {
+            color: white;
+            font-size: 1.2em;
+            text-decoration: none;
+            background-color: #fd1900;
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+        }
+
+        #carrinhoLink:hover {
+            background-color: #d43f00;
+        }
+
+        /* Responsividade */
+        @media screen and (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .product {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header>
+        <h1>WMA-Perfumes</h1>
+        <a href="#" id="carrinhoLink">Carrinho (0)</a>
+    </header>
+
+    <!-- Container de Produtos -->
+    <div class="container" id="productContainer">
+        <!-- Produtos serão carregados aqui -->
+    </div>
+
+    <script>
+        // Função para carregar os produtos da categoria "cremes" do localStorage
+        function loadsabonete() {
+            const productList = JSON.parse(localStorage.getItem("productList")) || [];
+            const productContainer = document.getElementById("productContainer");
+
+            productContainer.innerHTML = ""; // Limpa o container
+
+            // Filtra produtos que são da categoria "cremes"
+            const cremes = productList.filter(product => product.category === "cremes");
+
+            // Se não houver produtos, exibe uma mensagem
+            if (cremes.length === 0) {
+                productContainer.innerHTML = "<p>Nenhum produto disponível.</p>";
+            }
+
+            // Cria os elementos de produto para cada produto da categoria "cremes"
+            cremes.forEach(product => {
+                const productDiv = document.createElement("div");
+                productDiv.classList.add("product");
+                productDiv.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <h2>${product.name}</h2>
+                    <p>Preço: R$ ${product.price}</p>
+                    <button class="buy-button" onclick="adicionarAoCarrinho('${product.name}', ${product.price})">Comprar</button>
+                `;
+                productContainer.appendChild(productDiv);
+            });
+        }
+
+        // Função para adicionar ao carrinho
+        function adicionarAoCarrinho(nomeProduto, preco) {
+            let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            carrinho.push({ nome: nomeProduto, preco: preco });
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+            atualizarCarrinho();
+        }
+
+        // Função para atualizar o carrinho
+        function atualizarCarrinho() {
+            const carrinhoLink = document.getElementById('carrinhoLink');
+            const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            carrinhoLink.textContent = `Carrinho (${carrinho.length})`;
+        }
+
+        // Carregar os produtos ao carregar a página
+        window.onload = function() {
+            loadsabonete(); // Chama a função correta para carregar os produtos
+            atualizarCarrinho(); // Atualiza o número de itens no carrinho
+        };
+    </script>
+
+</body>
+</html>

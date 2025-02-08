@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WMA Personalizadas</title>
+    <style>
+       ;
+            padding: 20px;
+            background-color: #fc0fc0;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0; body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            text-align: center
+            margin: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 15px;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 10px;
+            transition: background 0.3s;
+        }
+        nav a:hover {
+            background-color: #555;
+            border-radius: 5px;
+        }
+        h1, h2, h3, h4 {
+            text-align: center;
+            margin: 20px 0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #333;
+        }
+        .imagem {
+            width: 150px;
+            float: right;
+            margin: 10px;
+            border-radius: 10px;
+        }
+        .pesquisa {
+            float: left;
+            margin: 10px;
+        }
+        .pesquisa input[type="text"] {
+            width: 80%;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .pesquisa button {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #555;
+            color: white;
+            cursor: pointer;
+        }
+        .pesquisa button:hover {
+            background-color: #777;
+        }
+        .produtos {
+            padding: 20px;
+            margin: 10px 0;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .status-conta, .info-conta, .conta-inativa, .conta-ativada {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .info-conta {
+            display: none;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .botao-logout {
+            margin-top: 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #ff4c4c;
+            color: white;
+            cursor: pointer;
+        }
+        .botao-logout:hover {
+            background-color: #ff7f7f;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .imagem {
+                width: 100px;
+            }
+            .pesquisa input[type="text"] {
+                width: 70%;
+            }
+        }
+        @media (max-width: 480px) {
+            nav ul li {
+                display: block;
+                margin: 5px 0;
+            }
+            .pesquisa {
+                float: none;
+                text-align: center;
+                margin: 0;
+            }
+            .imagem {
+                float: none;
+                display: block;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>WMA Personalizadas</h1>
+        <nav>
+            <ul>
+                <li><a href="rt.htm">Home</a></li>
+                <li><a href="quem_somos.html">Quem Somos</a></li>
+                <li><a href="contato.html">Contato</a></li>
+                <li><a href="registro.html">Conta</a></li>
+                <li id="linkConta" style="display: none;"><a href="conta.html">Conta Ativa</a></li>
+            </ul>
+        </nav>
+        <div class="conta-inativa" id="contaInativa">
+            <span>Faça login para acessar sua conta.</span>
+        </div>
+        <div class="conta-ativada" id="contaAtivada" style="display: none;">
+            <span>Sua conta foi ativada!</span>
+        </div>
+    </header>
+
+    <main>
+        <table>
+            <tr>
+                <td>
+                    <div class="pesquisa">
+                        <h3>Pesquise sobre nossos produtos:</h3>
+                        <input type="text" placeholder="Buscar...">
+                        <button type="button">Pesquisar</button>
+                    </div>
+                </td>
+                <td>
+                    <img class="imagem" src="https://i.imgur.com/Wzs2ZNs.jpeg" alt="Imagem de fundo">
+                </td>
+            </tr>
+        </table>
+
+        <h2>Nossos Produtos</h2>
+        <div class="produtos">
+            <h4>Canecas Térmicas</h4>
+            <p>Perfeitas para manter suas bebidas quentes ou frias por mais tempo.</p>
+            <img src="https://images.tcdn.com.br/img/img_prod/1177245/caneca_de_chopp_termica_de_inox_700_ml_ref_4070_95_1_c23f8414b292fa6ed8460baf297c49b3.jpg">
+        </div>
+        <div class="produtos">
+            <h4>Canecas de Cerâmica</h4>
+            <p>Disponíveis em diversas cores e estampas, ideais para o seu dia a dia.</p>
+            <img src="https://dcdn.mitiendanube.com/stores/003/353/762/products/caneca-ceramica-alca-coracao21-b96f9e1c827043a1cc16875587464209-1024-1024.jpg">
+        </div>
+
+        <div class="info-conta" id="infoConta">
+            <h3>Informações da Conta</h3>
+            <p><strong>Nome:</strong> Usuário Exemplo</p>
+            <p><strong>Email:</strong> usuario@example.com</p>
+            <button class="botao-logout" onclick="logout()">Logout</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 WMA Personalizadas. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Função para verificar o estado de login
+        function verificarLogin() {
+            const usuarioLogado = localStorage.getItem('usuarioLogado') === 'true';
+
+            if (usuarioLogado) {
+                document.getElementById("contaInativa").style.display = "none"; // Oculta a mensagem de conta inativa
+                document.getElementById("contaAtivada").style.display = "block"; // Mostra a mensagem de conta ativada
+                document.getElementById("infoConta").style.display = "block"; // Exibe a seção de informações
+                document.getElementById("linkConta").style.display = "inline"; // Mostra o link da conta ativa
+            } else {
+                document.getElementById("contaInativa").style.display = "block"; // Exibe a mensagem de conta inativa
+                document.getElementById("contaAtivada").style.display = "none"; // Oculta a mensagem de conta ativada
+                document.getElementById("infoConta").style.display = "none"; // Oculta a seção de informações
+                document.getElementById("linkConta").style.display = "none"; // Oculta o link da conta ativa
+            }
+        }
+
+        // Logout
+        function logout() {
+            localStorage.setItem('usuarioLogado', 'false');
+            verificarLogin();
+        }
+
+        // Simular login (remova isso na produção)
+        function simularLogin() {
+            localStorage.setItem('usuarioLogado', 'true');
+            verificarLogin();
+        }
+
+        // Chamada para verificar login ao carregar a página
+        verificarLogin();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wmaPresentes</title>
+
+    <!-- Link para a biblioteca Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* Estilos globais */
+        body {
+            background-color: #222;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Estilo para o header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #ff007a;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            color: white;
+            font-size: 36px;
+            margin: 0;
+            padding: 8px 20px;
+            background-color: #555;
+            border-radius: 5px;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 18px;
+            padding: 5px 10px;
+            background-color: #333;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        header a:hover {
+            background-color: #444;
+        }
+
+        /* Estilo para o footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        footer a {
+            color: #fd1900;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 16px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        footer p {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        /* Estilos para a grade de produtos (vitrines) */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .product {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .product h2 {
+            color: #333;
+            font-size: 1.4em;
+            margin-top: 10px;
+        }
+
+        .price {
+            font-size: 1.5em;
+            color: #fd1900;
+            margin: 10px 0;
+        }
+
+        /* Estilos para o link com aparência de botão */
+        .buy-link {
+            display: inline-block;
+            background-color: #27ae60;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .buy-link:hover {
+            background-color: #2ecc71;
+        }
+
+        /* Estilos para o carrinho */
+        .cart-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            background-color: rgb(82, 3, 55);
+            color: white;
+            padding: 20px;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+            height: 100%;
+            z-index: 999;
+        }
+
+        .cart-container h2 {
+            margin-top: 0;
+            font-size: 24px;
+        }
+
+        .cart-item {
+            margin-bottom: 10px;
+        }
+
+        .cart-item p {
+            margin: 0;
+        }
+
+        .cart-item .remove {
+            color: red;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        .cart-container button {
+            background-color: #e74c3c;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .cart-container button:hover {
+            background-color: #c0392b;
+        }
+
+        /* Botão Negociar com Vendedor */
+        .negotiate-button {
+            display: none;
+            background-color: #f39c12;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .negotiate-button:hover {
+            background-color: #e67e22;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho com título e link para o carrinho -->
+    <header>
+        <h1>WMA</h1>
+        <a href="#" onclick="mostrarCarrinho()" id="carrinhoLink">Carrinho (0)</a>
+        <a href="registro.html">Conta</a>
+    </header>
+
+    <!-- Conteúdo da página (Vitrine) -->
+    <div class="container">
+        <!-- Vitrine 1: Cremes -->
+        <div class="product creme">
+            <img src="file:///C:/Users/branco/Downloads/Red%20and%20Pink%20Illustrative%20%20Happy%20Birthday%20Party%20Invitation%20(4).png" alt="Creme">
+            <h2>Cremes</h2>
+            <a href="cremes.html" class="buy-link" onclick="adicionarAoCarrinho('Creme', 50.00)">Ver Mais</a>
+        </div>
+
+        <!-- Vitrine 2: Sabonetes Íntimos -->
+        <div class="product maquiagem">
+            <img src="file:///C:/Users/branco/Downloads/Red%20and%20Pink%20Illustrative%20%20Happy%20Birthday%20Party%20Invitation%20(5).png" alt="Sabonete Íntimo">
+            <h2>Sabonete Íntimo</h2>
+            <a href="sabonete.html" class="buy-link" onclick="adicionarAoCarrinho('Sabonete Íntimo', 30.00)">Ver Mais</a>
+        </div>
+
+        <!-- Vitrine 3: Fones de Ouvido -->
+        <div class="product creme">
+            <img src="file:///C:/Users/branco/Downloads/Red%20and%20Pink%20Illustrative%20%20Happy%20Birthday%20Party%20Invitation%20(1).png" alt="Fones de Ouvido">
+            <h2>Fones de Ouvido</h2>
+            <a href="fones.html" class="buy-link" onclick="adicionarAoCarrinho('Fones de Ouvido', 120.00)">Ver Mais</a>
+        </div>
+
+        <!-- Vitrine 4: Perfumes -->
+        <div class="product perfume">
+            <img src="file:///C:/Users/branco/Downloads/Red%20and%20Pink%20Illustrative%20%20Happy%20Birthday%20Party%20Invitation.png" alt="Perfumes">
+            <h2>Perfumes</h2>
+            <a href="perfume.html" class="buy-link" onclick="adicionarAoCarrinho('Perfume', 80.00)">Ver Mais</a>
+        </div>
+    </div>
+
+    <!-- Carrinho -->
+    <div id="cartContainer" class="cart-container">
+        <h2>Carrinho</h2>
+        <div id="cartItems"></div> 
+        
+        <p>Total: R$ <span id="totalPrice">0.00</span></p>
+        <button onclick="fecharCarrinho()">Fechar</button>
+
+        <!-- Botão Negociar com o Vendedor -->
+        <a href="#" id="negotiateLink" class="negotiate-button" target="_blank">Negociar com o Vendedor</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <h3>© Todos os direitos pertencem exclusivamente à wmaPresentes.</h3>
+        <p>Contato: <a href="mailto:wmaPresentes@gmail.com">wmaPresentes@gmail.com</a></p>
+        <p>
+            Siga-nos: <a href="#">[Facebook]</a> | <a href="#">[Instagram]</a> | <a href="#">[WhatsApp]</a>
+        </p>
+        <p>
+            Termos de uso | Política de Privacidade | FAQ | Sobre nós
+        </p>
+        <p>Site desenvolvido por: nesk.</p>
+    </footer>
+
+    <script>
+        // Carregar o carrinho do localStorage quando a página carregar
+        let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+        // Atualiza a visualização do carrinho
+        function atualizarCarrinho() {
+            // Atualiza o número de itens no carrinho
+            const carrinhoLink = document.getElementById('carrinhoLink');
+            carrinhoLink.textContent = `Carrinho (${carrinho.length})`;
+
+            // Atualiza os itens exibidos no carrinho
+            const cartItemsDiv = document.getElementById('cartItems');
+            cartItemsDiv.innerHTML = '';
+            let total = 0;
+            let produtoTexto = '';
+            carrinho.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('cart-item');
+                itemDiv.innerHTML = ` 
+                    <p>${item.nome} - R$ ${item.preco.toFixed(2)} <span class="remove" onclick="removerDoCarrinho(${index})">X</span></p>
+                `;
+                cartItemsDiv.appendChild(itemDiv);
+                total += item.preco;
+                produtoTexto += `${item.nome} - R$ ${item.preco.toFixed(2)}\n`;
+            });
+
+            // Atualiza o preço total
+            document.getElementById('totalPrice').textContent = total.toFixed(2);
+
+            // Exibe o botão de negociação se houver produtos no carrinho
+            const negotiateLink = document.getElementById('negotiateLink');
+            if (carrinho.length > 0) {
+                negotiateLink.style.display = 'inline-block';
+                const mensagem = encodeURIComponent(`Olá, estou interessado nos seguintes produtos:\n\n${produtoTexto}`);
+                negotiateLink.href = `https://wa.me/84587233?text=${mensagem}`; // Substitua pelo número do vendedor
+            } else {
+                negotiateLink.style.display = 'none';
+            }
+
+            // Salva o carrinho atualizado no localStorage
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+        }
+
+        // Função para adicionar produtos ao carrinho
+        function adicionarAoCarrinho(nomeProduto, preco) {
+            carrinho.push({ nome: nomeProduto, preco: preco });
+            atualizarCarrinho();
+        }
+
+        // Função para exibir o carrinho
+        function mostrarCarrinho() {
+            const cartContainer = document.getElementById('cartContainer');
+            cartContainer.style.display = 'block';
+        }
+
+        // Função para fechar o carrinho
+        function fecharCarrinho() {
+            const cartContainer = document.getElementById('cartContainer');
+            cartContainer.style.display = 'none';
+        }
+
+        // Função para remover item do carrinho
+        function removerDoCarrinho(index) {
+            carrinho.splice(index, 1);
+            atualizarCarrinho();
+        }
+
+        // Carregar o carrinho ao carregar a página
+        window.onload = atualizarCarrinho;
+    </script>
+
+</body>
+</html>
